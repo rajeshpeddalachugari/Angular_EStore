@@ -1,0 +1,39 @@
+<div class="container">
+  <h1>Shopping Cart</h1>
+  <p>you have {{shoppingCartItemsQuantity}} items in your shopping Cart</p>
+  <ng-container *ngIf="cart$ as cart">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let productId of keys">
+          <td>
+            {{cart.items[productId].product.title}}
+          </td>
+          <td>
+            <span (click)="removeFromCart(productId)">
+              <i class="fa fa-minus-circle" aria-hidden="true"></i>
+            </span>
+            <span class="p-3"> {{cart.items[productId].quantity}}</span>
+            <span (click)="addToCart(productId)">
+              <i class="fa fa-plus-circle" aria-hidden="true"></i>
+            </span>
+          </td>
+          <td>
+            {{cart.items[productId].product.price * cart.items[productId].quantity | currency:'INR':'symbol'}}
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <th colspan="2">Total Price</th>
+        <th>{{totalPrice}}</th>
+      </tfoot>
+    </table>
+  </ng-container>
+  <button type="button" (click)="ClearCart()" class="btn btn-secondary btn-sm">Clear Cart</button>
+</div>

@@ -1,0 +1,15 @@
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">CustomerName</th>
+        <th scope="col">Date</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders$ | async">
+        <td>{{order.payload.val().shipping.name}}</td>
+        <td>{{order.payload.val().datePlaced | date}}</td>
+      </tr>
+    </tbody>
+  </table>

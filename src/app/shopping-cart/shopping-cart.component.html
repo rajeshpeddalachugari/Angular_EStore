@@ -1,0 +1,50 @@
+<div class="container">
+    <h1>Shopping Cart</h1>
+    <p>you have {{shoppingCartItemsQuantity}} items in your shopping Cart</p>
+    <ng-container *ngIf="cart$ as cart">
+        <div class="d-flex flex-row-reverse">
+            <div title="Clear Shopping Cart" class="p-2">
+              <i class="fa fa-trash-o fa-2x trashIcon" (click)="ClearCart()" aria-hidden="true"></i></div>
+          </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let productId of keys">
+              <td>
+                  <img [src]="cart.items[productId].product.imageUrl" alt=""
+                   style="width: 100px;height: 100px" class="img-fluid rounded-circle">
+                </td>
+            <td>
+              {{cart.items[productId].product.title}}
+            </td>
+            <td>
+              <span (click)="removeFromCart(productId)">
+                <i class="fa fa-minus-circle" aria-hidden="true"></i>
+              </span>
+              <span class="p-3"> {{cart.items[productId].quantity}}</span>
+              <span (click)="addToCart(productId)">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+              </span>
+            </td>
+            <td>
+              {{cart.items[productId].product.price * cart.items[productId].quantity | currency:'INR':'symbol'}}
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <th class="text-justify" colspan="3">Total Price</th>
+          <th>{{totalPrice}}</th>
+        </tfoot>
+      </table>
+      <a *ngIf="shoppingCartItemsQuantity > 0" routerLink="/check-out" class="btn btn-primary">Check Out</a>
+    </ng-container>
+    
+  </div>
+  
